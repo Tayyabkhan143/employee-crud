@@ -3,6 +3,8 @@ package com.tayyab.employeecrud.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import com.tayyab.employeecrud.model.Employee;
 import com.tayyab.employeecrud.repository.EmployeeRepository;
 import com.tayyab.employeecrud.util.Util;
 
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -28,11 +31,14 @@ public class EmployeeController {
 	@Autowired
 	Util util;
 	
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
 	@RequestMapping(value="/getByID",method = RequestMethod.GET)
 	private ResponseEntity<EmployeeEntity> getEmployeeById(@RequestParam Integer id) {
 		
 		// http://localhost:8080/tayyab-springboot/employee/getByID?id=10001
+		
+		logger.info("Entered into getEmployeeById method with Id : "+id);
 		
 		ResponseEntity respEntity = null;
 		Optional<EmployeeEntity> empEntity =  empRepo.findById(id);
@@ -49,6 +55,8 @@ public class EmployeeController {
 	private List<EmployeeEntity> getEmployees() {
 		
 		// http://localhost:8080/tayyab-springboot/employee/getAll
+		
+		logger.info("Entered into getEmployees method");
 		return empRepo.findAll();
 	}
 	
@@ -56,6 +64,9 @@ public class EmployeeController {
 	private List<EmployeeEntity> getEmployeeByFirstName(@PathVariable String firstName) {
 		
 		// http://localhost:8080/tayyab-springboot/employee/getByFirstName/Saniya
+		
+		logger.info("Entered into getEmployeeByFirstName method with First Name : "+firstName);
+		
 		return empRepo.findByFirstName(firstName);
 	}
 	
@@ -74,6 +85,9 @@ public class EmployeeController {
 		}
 		
 		*/
+		
+		logger.info("Entered into createEmployee method with requestBody : "+emp.toString());
+		
 		return empRepo.save(emp);
 	}
 	
@@ -81,13 +95,15 @@ public class EmployeeController {
 	private String  deleteEmployeeByID(@RequestParam Integer empNo) {
 		
 		// http://localhost:8080/tayyab-springboot/employee/deleteByID?empNO=500000
-
+		logger.info("Entered into deleteEmployeeByID method with EmpNo : "+empNo);
+		
 		try {
 			empRepo.deleteById(empNo);
 			return "employee "+empNo+" deleted from database";
 			
 		}
 		catch(Exception e) {
+			logger.error(e.getMessage());
 			return e.getMessage();
 		}
 		
