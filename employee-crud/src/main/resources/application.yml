@@ -1,10 +1,17 @@
 spring:
-  profiles:    active:    - uat
-
+  profiles:    active:    - dev
+    
+management:
+   security:
+      enabled: false
+   endpoints:
+     web:
+      exposure:
+        include: "*"
 --- 
 
 spring:
-  profiles: uat
+  profiles: dev
     datasource:
     url: jdbc:mysql://localhost:3306/employees     username: root
     password: Tayyab@143
