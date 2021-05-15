@@ -19,6 +19,19 @@ public class Util {
 		emp.setHireDate(empEnt.getHireDate());
 		
 		return emp;
+	}
+	
+public EmployeeEntity convertModelToEntity(Employee emp) {
+		
+		EmployeeEntity empEntity = new EmployeeEntity();
+		empEntity.setEmpNo(emp.getId());
+		empEntity.setBirthDate(emp.getBirthDate());
+		empEntity.setFirstName(emp.getFirstName());
+		empEntity.setLastName(emp.getLastName());
+		empEntity.setGender(emp.getGender());
+		empEntity.setHireDate(emp.getHireDate());
+		
+		return empEntity;
 		
 
 	}
