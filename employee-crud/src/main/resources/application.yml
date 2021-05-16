@@ -16,8 +16,8 @@ entitymanager:
 spring:
   profiles: dev
     datasource:
-    url: jdbc:mysql://localhost:3306/employees     username: root
-    password: 
+    url: jdbc:mysql://localhost:3306/employees     username: Tayyab
+    password: Fullstack!143
     driver-class-name: com.mysql.cj.jdbc.Driver
     
   jpa:    hibernate:      ddl-auto: update    show-sql: true
