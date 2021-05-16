@@ -1,5 +1,5 @@
 spring:
-  profiles:    active:    - dev
+  profiles:    active:    - uat
     
 management:
    security:
@@ -29,3 +29,28 @@ spring:
         
 server:  port: 8080
   servlet:    context-path: /tayyab-springboot
+    
+---
+spring:
+  profiles: uat
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/employees 
+    username: root
+    password: Fullstack@143
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate: 
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        connection.autocommit: true
+        
+server:
+  port: 8080
+  servlet:
+    context-path: /tayyab-springboot
