@@ -27,8 +27,11 @@ public class EmpHibernateController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmpHibernateController.class);
 	
+	
+	// 	http://localhost:8080/tayyab-springboot/employee-hibernate/getAllEmployees
 	@RequestMapping(value = "/getAllEmployees", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Employee>> getAllEmployees() {
+		logger.info("Entered into getAllEmployees method");
 		ResponseEntity<List<Employee>> respEntity = null;
         List<Employee> employeeList = employeeService.getAllEmployees();
         if(!employeeList.isEmpty()) {
@@ -44,11 +47,14 @@ public class EmpHibernateController {
  
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     public String goToHomePage() {
+		logger.info("Entered into goToHomePage method");
         return "redirect:/getAllEmployees";
     }
- 
+	
+	//	http://localhost:8080/tayyab-springboot/employee-hibernate/getEmployeeById/49999
 	@RequestMapping(value = "/getEmployeeById/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
+		logger.info("Entered into getEmployeeById method with Id : "+id);
 		ResponseEntity<Employee> respEntity = null;
 		Employee emp = null;
 		emp = employeeService.getEmployee(id);
@@ -63,8 +69,20 @@ public class EmpHibernateController {
         return respEntity;
     }
  
+	//	http://localhost:8080/tayyab-springboot/employee-hibernate/createEmployee
+	/* 
+	  {
+		    "empNo": 500000, 
+		    "birthDate": "1997-07-19",
+		    "firstName": "Tayyab",
+		    "lastName": "Pathan",
+		    "gender": "M",
+		    "hireDate": "2018-11-26"
+		}
+	 */
 	@RequestMapping(value = "/createEmployee", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Integer> createEmployee(@RequestBody EmployeeEntity empEntity) {  
+    public ResponseEntity<Integer> createEmployee(@RequestBody EmployeeEntity empEntity) { 
+		logger.info("Entered into updateEmployee method with request body : "+ empEntity.toString());
 		ResponseEntity<Integer> respEntity = null;
 		Integer id = -1;
         id =  employeeService.addEmployee(empEntity);
@@ -79,8 +97,20 @@ public class EmpHibernateController {
         return respEntity;
     }
  
+//	http://localhost:8080/tayyab-springboot/employee-hibernate/updateEmployee
+	/* 
+	  {
+		    "empNo": 500000, 
+		    "birthDate": "1997-07-19",
+		    "firstName": "Tayyab khan",
+		    "lastName": "Pathan",
+		    "gender": "M",
+		    "hireDate": "2018-11-26"
+		}
+	 */
 	@RequestMapping(value = "/updateEmployee", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> updateEmployee(@RequestBody EmployeeEntity empEntity) {
+		logger.info("Entered into updateEmployee method with request body : "+empEntity.toString());
 		ResponseEntity<String> respEntity = null;
         try {
 			employeeService.updateEmployee(empEntity);
@@ -91,9 +121,11 @@ public class EmpHibernateController {
 		}
         return respEntity;
     }
- 
+	
+	//http://localhost:8080/tayyab-springboot/employee-hibernate/deleteEmployee/500000
 	@RequestMapping(value = "/deleteEmployee/{id}", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> deleteEmployee(@PathVariable Integer id) {
+		logger.info("Entered into deleteEmployee method with Id : "+id);
 		ResponseEntity<String> respEntity = null;
         try {
 			employeeService.deleteEmployee(id);

@@ -27,7 +27,7 @@ public class EmployeeService {
     @Autowired
     Util util;
  
-    @Transactional
+    
     public List<Employee> getAllEmployees() {
     	
     	List<Employee> empList = new ArrayList<>();
@@ -42,12 +42,12 @@ public class EmployeeService {
 				}
 			}
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception in getAllEmployees : "+e.getMessage());
 		}
         return empList;
     }
     
-    @Transactional
+    
     public Employee getEmployee(Integer id) {
     	
     	Employee employee = null;
@@ -58,43 +58,43 @@ public class EmployeeService {
 				employee = util.convertEntityToModel(empEntity);
 			}
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception in getEmployee : "+e.getMessage());
 			
 		}
         return employee;
     }
  
-    @Transactional
+    
     public Integer addEmployee(EmployeeEntity employeeEntity) {
     	
     	Integer id = null ;
     	try {
 			id =  employeeDao.addEmployeeEntity(employeeEntity);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception in addEmployee : "+e.getMessage());
 			id = -1;
 			
 		}
 		return id;
     }
  
-    @Transactional
+    
     public void updateEmployee(EmployeeEntity employee) {
         try {
 			employeeDao.updateEmployeeEntity(employee);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception in updateEmployee : "+e.getMessage());
 			throw e;
 		}
  
     }
  
-    @Transactional
+    
     public void deleteEmployee(Integer id) {
         try {
 			employeeDao.deleteEmployeeEntity(id);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception in deleteEmployee : "+e.getMessage());
 			throw e;
 		}
     }

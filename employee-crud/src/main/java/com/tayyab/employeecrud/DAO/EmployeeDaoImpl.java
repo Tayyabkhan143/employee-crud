@@ -2,6 +2,8 @@ package com.tayyab.employeecrud.DAO;
 
 import java.util.List;
 
+import org.hibernate.Transaction;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,12 +25,13 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public List<EmployeeEntity> getAllEmployeeEntitys() {
 		Session session = sessionFactory.openSession();
-        List<EmployeeEntity>  employeeList =null;
-        Query<EmployeeEntity> query;
+		Transaction t = session.beginTransaction();
+		List<EmployeeEntity>  employeeList =null;
 		try {
-			query = session.createQuery("select * from employees");
-			employeeList = query.getResultList();
+			employeeList = session.createQuery("from EmployeeEntity").list();
+			t.commit();
 		} catch (Exception e) {
+			t.rollback();
 			logger.error(e.getMessage());
 			throw e;
 		}
@@ -42,10 +45,14 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public EmployeeEntity getEmployeeEntity(Integer id) {
 		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		
 		EmployeeEntity empEntity = null;
         try {
 			empEntity  = session.get(EmployeeEntity.class, id);
+			t.commit();
 		} catch (Exception e) {
+			t.rollback();
 			logger.error(e.getMessage());
 			throw e;
 		}
@@ -59,10 +66,14 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public Integer addEmployeeEntity(EmployeeEntity employeeEntity) {
 		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		
 		Integer id = null;
         try {
 			 id = (Integer) session.save(employeeEntity);
+			 t.commit();
 		} catch (Exception e) {
+			t.rollback();
 			logger.error(e.getMessage());
 			throw e;
 		}
@@ -76,9 +87,13 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public void updateEmployeeEntity(EmployeeEntity employeeEntity) {
 		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		
         try {
 			 session.update(employeeEntity);
+			 t.commit();
 		} catch (Exception e) {
+			t.rollback();
 			logger.error(e.getMessage());
 			throw e;
 		}
@@ -91,12 +106,16 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public void deleteEmployeeEntity(Integer id) {
 		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		
 		try {
 			EmployeeEntity empEntity = (EmployeeEntity) session.load(EmployeeEntity.class, id);
 	        if (null != empEntity) {
 	            session.delete(empEntity);
 	        }
+	        t.commit();
 		} catch (Exception e) {
+			t.rollback();
 			logger.error(e.getMessage());
 			throw e;
 		}
