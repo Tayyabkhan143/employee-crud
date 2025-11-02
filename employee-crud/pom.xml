@@ -16,6 +16,10 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<sonar.organization>tayyabkhan143</sonar.organization>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+    	<maven.compiler.target>${java.version}</maven.compiler.target>
+    	<sonar.java.source>${java.version}</sonar.java.source>
+    	<sonar.java.target>${java.version}</sonar.java.target>
 		<sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
 	</properties>
 	<dependencies>
