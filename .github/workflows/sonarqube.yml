@@ -34,13 +34,13 @@ jobs:
 
       # 🟢 Step 3: Run SonarQube analysis
       - name: Analyze with SonarQube
-        uses: SonarSource/sonarqube-scan-action@7295e71c9583053f5bf40e9d4068a0c974603ec8
+        #uses: SonarSource/sonarqube-scan-action@7295e71c9583053f5bf40e9d4068a0c974603ec8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          JAVA_HOME: /opt/hostedtoolcache/jdk/17*/x64
-          PATH: /opt/hostedtoolcache/jdk/17*/x64/bin:${{ env.PATH }}
+          #JAVA_HOME: /opt/hostedtoolcache/jdk/17*/x64
+          #PATH: /opt/hostedtoolcache/jdk/17*/x64/bin:${{ env.PATH }}
         with:
           args: >
             -Dsonar.projectKey=Tayyabkhan143_employee-crud
